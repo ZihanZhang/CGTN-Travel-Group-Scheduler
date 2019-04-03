@@ -159,7 +159,7 @@
             }
           ?>
           <tr>
-            <form action="add.php" method="POST">
+            <form name="addform" action="add.php" method="POST" onsubmit="return validateForm()">
             <td align="center"><input type="text" name="name" /></td>
             <td align="center"><select name="total">
               <option value=2>2</option>
@@ -315,6 +315,16 @@
             var r=confirm("Are you sure you want to delete this record?");
             if (r==true) {
               window.location.assign("delete.php?id=" + id);
+            }
+          }
+
+          function validateForm() {
+            var df = document.forms['addform']['dayoff'].value;
+            var od1 = document.forms['addform']['onduty1'].value;
+            var od2 = document.forms['addform']['onduty2'].value;
+            if (df == od1 || df == od2 || od1 == od2) {
+              alert("Data not correct, please reinput the data");
+              return false;
             }
           }
         </script>

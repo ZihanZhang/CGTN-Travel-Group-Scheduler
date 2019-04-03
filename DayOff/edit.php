@@ -159,7 +159,7 @@
             <th>Consecutive</th>
           </tr>     
           <tr> 
-            <form action="edit.php" method="POST">
+            <form name="addform" action="edit.php" method="POST" onsubmit="return validateForm()">
             <input type="hidden" name="id" value='.$id.' />
             <td align="center"><input type="text" name="name" value='.$n.' /></td>
             <td align="center"><select name="total">
@@ -207,6 +207,17 @@
       Print '<h2 align="center">There is no data to be edited.</h2>';
     }
     ?>
+    <script>
+        function validateForm() {
+        var df = document.forms['addform']['dayoff'].value;
+        var od1 = document.forms['addform']['onduty1'].value;
+        var od2 = document.forms['addform']['onduty2'].value;
+        if (df == od1 || df == od2 || od1 == od2) {
+          alert("Data not correct, please reinput the data");
+          return false;
+        }
+      }
+    </script>
   </body>
 </html>
 
