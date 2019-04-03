@@ -23,8 +23,6 @@
             <th>Day Off</th>
             <th>On Duty1</th>
             <th>On Duty2</th>
-            <th>On Duty3</th>
-            <th>On Duty4</th>
             <th>Consecutive</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -148,68 +146,6 @@
                   $days[$od2 - 1]->people[] = $person;
                 }
                 Print '<td align="center">'. $date2."</td>";
-                $od3 = $row['OnDuty3'];
-                switch ($od3) {
-                  case 0:
-                    $date3 = "Not Selected";
-                    break;
-                  case 1:
-                    $date3 = "Monday";
-                    break;
-                  case 2:
-                    $date3 = "Tuesday";
-                    break;
-                  case 3:
-                    $date3 = "Wednesday";
-                    break;
-                  case 4:
-                    $date3 = "Thursday";
-                    break;
-                  case 5:
-                    $date3 = "Friday";
-                    break;
-                  case 6:
-                    $date3 = "Saturday";
-                    break;
-                  case 7:
-                    $date3 = "Sunday";
-                    break;
-                }
-                if ($od3 != 0) {
-                  $days[$od3 - 1]->people[] = $person;
-                }
-                Print '<td align="center">'. $date3."</td>";
-                $od4 = $row['OnDuty4'];
-                switch ($od4) {
-                  case 0:
-                    $date4 = "Not Selected";
-                    break;
-                  case 1:
-                    $date4 = "Monday";
-                    break;
-                  case 2:
-                    $date4 = "Tuesday";
-                    break;
-                  case 3:
-                    $date4 = "Wednesday";
-                    break;
-                  case 4:
-                    $date4 = "Thursday";
-                    break;
-                  case 5:
-                    $date4 = "Friday";
-                    break;
-                  case 6:
-                    $date4 = "Saturday";
-                    break;
-                  case 7:
-                    $date4 = "Sunday";
-                    break;
-                }
-                if ($od4 != 0) {
-                  $days[$od4 - 1]->people[] = $person;
-                }
-                Print '<td align="center">'. $date4."</td>";
                 if ($row['Consecutive'] == 0) {
                   $cons = "No";
                 }
@@ -249,26 +185,6 @@
               <option value=7>Sunday</option>
             </select></td>
             <td align="center"><select name="onduty2">
-              <option value=0>None</option>
-              <option value=1>Monday</option>
-              <option value=2>Tuesday</option>
-              <option value=3>Wednesday</option>
-              <option value=4>Thursday</option>
-              <option value=5>Friday</option>
-              <option value=6>Saturday</option>
-              <option value=7>Sunday</option>
-            </select></td>
-            <td align="center"><select name="onduty3">
-              <option value=0>None</option>
-              <option value=1>Monday</option>
-              <option value=2>Tuesday</option>
-              <option value=3>Wednesday</option>
-              <option value=4>Thursday</option>
-              <option value=5>Friday</option>
-              <option value=6>Saturday</option>
-              <option value=7>Sunday</option>
-            </select></td>
-            <td align="center"><select name="onduty4">
               <option value=0>None</option>
               <option value=1>Monday</option>
               <option value=2>Tuesday</option>
