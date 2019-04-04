@@ -206,45 +206,51 @@
     function writeInToDB($people, $time) {
     	$con = mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
 	    mysqli_select_db($con, "first_db") or die("Cannot connect to database"); //Connect to database
-	    foreach ($people as $p) {
-	    	$id = $p->id;
-	    	$name = $p->name;
-	    	$total = $p->Total;
-	    	$dayoff1 = $p->DayOff1;
-	    	$dayoff2 = $p->DayOff2;
-	    	$dayoff3 = $p->DayOff3;
-	    	$ind = 0;
-	    	$onduty1 = 0;
-	    	$onduty2 = 0;
-	    	$onduty3 = 0;
-	    	$onduty4 = 0;
-	    	if (array_key_exists($ind, $p->ondutys)) {
-	    		$onduty1 = $p->ondutys[$ind];
-	    		$ind++;
-	    	}
-	    	if (array_key_exists($ind, $p->ondutys)) {
-	    		$onduty2 = $p->ondutys[$ind];
-	    		$ind++;
-	    	}
-	    	if (array_key_exists($ind, $p->ondutys)) {
-	    		$onduty3 = $p->ondutys[$ind];
-	    		$ind++;
-	    	}
-	    	if (array_key_exists($ind, $p->ondutys)) {
-	    		$onduty4 = $p->ondutys[$ind];
-	    		$ind++;
-	    	}
-	    	$consecutive = $p->Consecutive;
+	    $query = mysqli_query($con, "Select * from dayoff Where DTime='$time'");
+	    $count = mysqli_num_rows($query);
+	    if ($count > 0) {
+	    	//TODO
+	    }
+	    else {
+		    foreach ($people as $p) {
+		    	$id = $p->id;
+		    	$name = $p->name;
+		    	$total = $p->Total;
+		    	$dayoff1 = $p->DayOff1;
+		    	$dayoff2 = $p->DayOff2;
+		    	$dayoff3 = $p->DayOff3;
+		    	$ind = 0;
+		    	$onduty1 = 0;
+		    	$onduty2 = 0;
+		    	$onduty3 = 0;
+		    	$onduty4 = 0;
+		    	if (array_key_exists($ind, $p->ondutys)) {
+		    		$onduty1 = $p->ondutys[$ind];
+		    		$ind++;
+		    	}
+		    	if (array_key_exists($ind, $p->ondutys)) {
+		    		$onduty2 = $p->ondutys[$ind];
+		    		$ind++;
+		    	}
+		    	if (array_key_exists($ind, $p->ondutys)) {
+		    		$onduty3 = $p->ondutys[$ind];
+		    		$ind++;
+		    	}
+		    	if (array_key_exists($ind, $p->ondutys)) {
+		    		$onduty4 = $p->ondutys[$ind];
+		    		$ind++;
+		    	}
+		    	$consecutive = $p->Consecutive;
 
-	    	// print "<br>".$id." ".$name." ".$dayoff1." ".$dayoff2." ".$dayoff3." ".$onduty1." ".$onduty2." ".$consecutive."<br>";
-	    	Print $time;
-	    	$stmt = $con->prepare('UPDATE dayoff SET Name = ?, Total = ?, DayOff1 = ?, DayOff2 = ?, DayOff3 = ?, OnDuty1 = ?, OnDuty2 = ?, OnDuty3 = ?, OnDuty4 = ?, Consecutive = ?, DTime = ? WHERE id = ?');
-			$stmt->bind_param("siiiiiiiiisi",$name, $total, $dayoff1, $dayoff2, $dayoff3, $onduty1, $onduty2, $onduty3, $onduty4, $consecutive, $time, $id);
-			$stmt->execute();
+		    	// print "<br>".$id." ".$name." ".$dayoff1." ".$dayoff2." ".$dayoff3." ".$onduty1." ".$onduty2." ".$consecutive."<br>";
+		    	$stmt = $con->prepare('UPDATE dayoff SET Name = ?, Total = ?, DayOff1 = ?, DayOff2 = ?, DayOff3 = ?, OnDuty1 = ?, OnDuty2 = ?, OnDuty3 = ?, OnDuty4 = ?, Consecutive = ?, DTime = ? WHERE id = ?');
+				$stmt->bind_param("siiiiiiiiisi",$name, $total, $dayoff1, $dayoff2, $dayoff3, $onduty1, $onduty2, $onduty3, $onduty4, $consecutive, $time, $id);
+				$stmt->execute();
 
 
-			//Doesn't work somehow
-	    	// mysqli_query($con, "UPDATE dayoff SET Name='$name', Total='$total', DayOff1='$dayoff1', DayOff2='dayoff2', DayOff3='dayoff3', OnDuty1='$onduty1', OnDuty2='$onduty2', OnDuty3 = '$onduty3', OnDuty4 = '$onduty4', Consecutive = '$consecutive' WHERE id='$id'") ;
+				//Doesn't work somehow
+		    	// mysqli_query($con, "UPDATE dayoff SET Name='$name', Total='$total', DayOff1='$dayoff1', DayOff2='dayoff2', DayOff3='dayoff3', OnDuty1='$onduty1', OnDuty2='$onduty2', OnDuty3 = '$onduty3', OnDuty4 = '$onduty4', Consecutive = '$consecutive' WHERE id='$id'") ;
+		    }
 	    }
     }
 
