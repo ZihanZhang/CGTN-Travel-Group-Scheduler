@@ -2,14 +2,14 @@
 <html>
 <head>
 	<?php 
-
+		$time = $_POST['time'];
 	?>
 </head>
 <body>
 
 </body>
 </html>
-<?php
+<?php	
 	require_once("Person.php");
 	require_once("WorkDay.php");
 
@@ -169,14 +169,14 @@
 	    }
 
 	    if (isValid($dayscopy)) {
-	    	writeInToDB($peoplecopy);
+	    	writeInToDB($peoplecopy, $time);
 	    	$success = true;
 	    	break;
 	    }
     }
 
     if ($success) {
-    	header("location: show.php?suc=1");   	
+    	header("location: show.php?suc=1&time=".$time);   	
     }
     else {
     	header("location: show.php?suc=0");
@@ -203,7 +203,7 @@
 
     // print $p->name." ".$p->DayOff2;
 
-    function writeInToDB($people) {
+    function writeInToDB($people, $time) {
     	$con = mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
 	    mysqli_select_db($con, "first_db") or die("Cannot connect to database"); //Connect to database
 	    foreach ($people as $p) {
@@ -237,9 +237,9 @@
 	    	$consecutive = $p->Consecutive;
 
 	    	// print "<br>".$id." ".$name." ".$dayoff1." ".$dayoff2." ".$dayoff3." ".$onduty1." ".$onduty2." ".$consecutive."<br>";
-
-	    	$stmt = $con->prepare('UPDATE dayoff SET Name = ?, Total = ?, DayOff1 = ?, DayOff2 = ?, DayOff3 = ?, OnDuty1 = ?, OnDuty2 = ?, OnDuty3 = ?, OnDuty4 = ?, Consecutive = ? WHERE id = ?');
-			$stmt->bind_param("siiiiiiiiii",$name, $total, $dayoff1, $dayoff2, $dayoff3, $onduty1, $onduty2, $onduty3, $onduty4, $consecutive, $id);
+	    	Print $time;
+	    	$stmt = $con->prepare('UPDATE dayoff SET Name = ?, Total = ?, DayOff1 = ?, DayOff2 = ?, DayOff3 = ?, OnDuty1 = ?, OnDuty2 = ?, OnDuty3 = ?, OnDuty4 = ?, Consecutive = ?, DTime = ? WHERE id = ?');
+			$stmt->bind_param("siiiiiiiiisi",$name, $total, $dayoff1, $dayoff2, $dayoff3, $onduty1, $onduty2, $onduty3, $onduty4, $consecutive, $time, $id);
 			$stmt->execute();
 
 

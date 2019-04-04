@@ -2,6 +2,7 @@
 <html>
 <head>
 	<div id="sucdiv">
+		<?php echo $_GET['time']?>
         <table border="1px" width="100%">
           <tr>
             <th>Name</th>

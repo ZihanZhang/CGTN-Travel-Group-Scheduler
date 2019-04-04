@@ -308,8 +308,12 @@
         </table>
         <br>
         <br>
-        <button onclick="window.location.href = 'generate.php'">Generate</button>
-
+        <form name="generateform" action="generate.php" method="POST" onsubmit="return validateTime()">
+          <input type="date" name="time"/>
+          <input type="submit" value="generate" />
+        </form>
+<!--         <button onclick="window.location.href = 'generate.php'">Generate</button>
+ -->
         <script>
           function myFunction(id) {
             var r=confirm("Are you sure you want to delete this record?");
@@ -324,6 +328,14 @@
             var od2 = document.forms['addform']['onduty2'].value;
             if (df == od1 || df == od2 || od1 == od2) {
               alert("Data not correct, please reinput the data");
+              return false;
+            }
+          }
+
+          function validateTime() {
+            var t = document.forms['generateform']['time'].value;
+            if (t == "") {
+              alert("Please Input Date");
               return false;
             }
           }
