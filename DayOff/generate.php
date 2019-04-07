@@ -206,12 +206,12 @@
     function writeInToDB($people, $time) {
     	$con = mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
 	    mysqli_select_db($con, "first_db") or die("Cannot connect to database"); //Connect to database
-	    $query = mysqli_query($con, "Select * from dayoff Where DTime='$time'");
-	    $count = mysqli_num_rows($query);
-	    if ($count > 0) {
-	    	//TODO
-	    }
-	    else {
+	    // $query = mysqli_query($con, "Select * from dayoff Where DTime='$time'");
+	    // $count = mysqli_num_rows($query);
+	    // if ($count > 0) {
+	    // 	//TODO
+	    // }
+	    // else {
 		    foreach ($people as $p) {
 		    	$id = $p->id;
 		    	$name = $p->name;
@@ -243,15 +243,15 @@
 		    	$consecutive = $p->Consecutive;
 
 		    	// print "<br>".$id." ".$name." ".$dayoff1." ".$dayoff2." ".$dayoff3." ".$onduty1." ".$onduty2." ".$consecutive."<br>";
-		    	$stmt = $con->prepare('UPDATE dayoff SET Name = ?, Total = ?, DayOff1 = ?, DayOff2 = ?, DayOff3 = ?, OnDuty1 = ?, OnDuty2 = ?, OnDuty3 = ?, OnDuty4 = ?, Consecutive = ?, DTime = ? WHERE id = ?');
-				$stmt->bind_param("siiiiiiiiisi",$name, $total, $dayoff1, $dayoff2, $dayoff3, $onduty1, $onduty2, $onduty3, $onduty4, $consecutive, $time, $id);
+		    	$stmt = $con->prepare('INSERT INTO history(Name, Total, DayOff1, DayOff2, DayOff3, OnDuty1, OnDuty2, OnDuty3, OnDuty4, Consecutive, DTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+				$stmt->bind_param("siiiiiiiiis",$name, $total, $dayoff1, $dayoff2, $dayoff3, $onduty1, $onduty2, $onduty3, $onduty4, $consecutive, $time);
 				$stmt->execute();
 
 
 				//Doesn't work somehow
 		    	// mysqli_query($con, "UPDATE dayoff SET Name='$name', Total='$total', DayOff1='$dayoff1', DayOff2='dayoff2', DayOff3='dayoff3', OnDuty1='$onduty1', OnDuty2='$onduty2', OnDuty3 = '$onduty3', OnDuty4 = '$onduty4', Consecutive = '$consecutive' WHERE id='$id'") ;
 		    }
-	    }
+	    // }
     }
 
     function isValid($days) {
