@@ -311,7 +311,7 @@
         <button onclick="location.href='history.php'">History</button>
         <br>
         <br>
-        <form name="generateform" action="generate.php" method="POST" onsubmit="return validateTime()">
+        <form name="generateform" action="override.php" method="POST" onsubmit="return validateTime()">
           <input type="date" name="time"/>
           <input type="submit" value="generate" />
         </form>

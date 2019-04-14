@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<?php 
-		$time = $_POST['time'];
-	?>
 </head>
 <body>
-
+	<?php 
+		$time = $_GET['time'];
+	?>
 </body>
 </html>
 <?php	
@@ -34,6 +33,14 @@
 
     $con = mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
     mysqli_select_db($con, "first_db") or die("Cannot connect to database"); //connect to database
+
+    if (mysqli_query($con, "Delete from history where DTime = '".$time."'")) {
+    	echo "Deleted";
+    }
+    else {
+    	echo "Error".mysqli_error($con);
+    }
+
     $query = mysqli_query($con, "Select * from dayoff"); // SQL Query
     while($row = mysqli_fetch_array($query)) {
     	$person = new Person($row['id'], $row['Name'], $row['Total'], $row['DayOff1'], $row['OnDuty1'], $row['OnDuty2'], $row['OnDuty3'], $row['OnDuty4'], $row['Consecutive']);
