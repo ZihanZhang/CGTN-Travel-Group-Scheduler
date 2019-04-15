@@ -66,6 +66,9 @@
 
     $success = false;
 
+    $failcount = array();
+    array_fill(0, 7, 0);
+
     while ($trytime++ < 1000) {
     	$peoplecopy = array();
 		foreach ($people as $k => $v) {
@@ -175,10 +178,14 @@
 	    	// print $p->name." ".$p->DayOff1." ".$p->DayOff2." ".$p->DayOff3."\n";
 	    }
 
-	    if (isValid($dayscopy)) {
+	    $result = isValid($dayscopy);
+	    if ($result == "Valid") {
 	    	writeInToDB($peoplecopy, $time);
 	    	$success = true;
 	    	break;
+	    }
+	    else {
+	    	$failcount[$result] += 1;
 	    }
     }
 
@@ -186,7 +193,8 @@
     	header("location: show.php?suc=1&time=".$time);   	
     }
     else {
-    	header("location: show.php?suc=0");
+    	$badday = array_search(max($failcount), $failcount);
+    	header("location: show.php?suc=0&bad=".$badday);
     }
 
 
@@ -266,10 +274,10 @@
    			// print $d->name." ".count($d->people);
     		if (count($d->people) < $d->limit) {
     			// print "<br>".$d->name."is Wrong"."<br>";
-    			return false;
+    			return $d->name;
     		}
     	}
-    	return true;
+    	return "Valid";
     }
 
     function hasConsecutives(&$person) {

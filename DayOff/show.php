@@ -176,7 +176,8 @@
         <br>
     </div>
     <div id="faldiv">
-    	Cannot generate schedule, please change the input data
+    	Cannot generate schedule, please change the input data.<br>
+    	<div id="bad"></div>
     </div>
 
     <script type="text/javascript">
@@ -188,6 +189,8 @@
 			f.style.display = 'none';
 		}
 		else {
+			var badday = url.searchParams.get("bad");
+			document.getElementById("bad").innerText = "Possible conflict is " + badday;
 			s.style.display = 'none';
 		}
     </script>
