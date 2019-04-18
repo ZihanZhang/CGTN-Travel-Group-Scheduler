@@ -33,9 +33,11 @@
 
             $people = array();
 
+            $time = $_GET['time'];
+
             $con = mysqli_connect("localhost", "root","") or die(mysql_error()); //Connect to server
             mysqli_select_db($con, "first_db") or die("Cannot connect to database"); //connect to database
-            $query = mysqli_query($con, "Select * from dayoff"); // SQL Query
+            $query = mysqli_query($con, "Select * from history where DTime='".$time."'"); // SQL Query
             while($row = mysqli_fetch_array($query))
             {
               $person = new Person($row['id'], $row['Name'], $row['Total'], $row['DayOff1'], $row['OnDuty1'], $row['OnDuty2'], $row['OnDuty3'], $row['OnDuty4'], $row['Consecutive']);
